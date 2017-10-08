@@ -158,8 +158,16 @@ class Background {
   }
 
   tick() {
+    let changed = false
+
     for (let i = 0; i < 3; i++) {
       let distance = this.targetColor[i] - this.color[i]
+
+      if (distance === 0) {
+        continue
+      }
+
+      changed = true
 
       if (distance > 10) {
         this.color[i] += 10
@@ -172,7 +180,9 @@ class Background {
       }
     }
 
-    this.gradient = this.createGradient(this.color)
+    if (changed) {
+      this.gradient = this.createGradient(this.color)
+    }
   }
 
   render() {
